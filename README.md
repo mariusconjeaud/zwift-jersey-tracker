@@ -47,7 +47,7 @@ towards milestones or world clears (same as the world counters), except in The F
 | Group | Badges |
 | --- | --- |
 | Milestones | Fresh Laundry (1 jersey), Laundry Day (10), Wardrobe Malfunction (25), Kit Hoarder (50), Lycra Dragon (100), Nothing Left to Wear (all) |
-| Worlds | Jet Lagged (a jersey in every world, Bologna excused), one clear badge per world (Volcano Landlord, Shogun of Makuri, Le Patron, Champs-ion, Mind the Gap, Big Apple Core, Filthy Richmond, Strudel Supremo, Flat Cap Legend, Laird of the Loch, Crit Happens, Full Bolognese), Ouhlala (France + Paris) |
+| Worlds | Jet Lagged (a jersey in every world, Bologna excused), one clear badge per world (Volcano Landlord, Shogun of Makuri, Le Patron, Ici c'est Paris, Mind the Gap, Big Apple Core, Filthy Richmond, Strudel Supremo, Flat Cap Legend, Laird of the Loch, Crit Happens, Full Bolognese), Ouhlala (France + Paris) |
 | Collections | Green With Envy (all sprints), Chickenpox (all KOMs), Human Traffic Cone (all laps), The Full English (every combined at full) |
 | Sets | Rainbow Wannabe (6 UCI course laps), Tickled Pink (Keith + Leith Hill), Buffalo Herd (Fuego Flats both ways) |
 

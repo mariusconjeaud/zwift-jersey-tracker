@@ -20,7 +20,7 @@ const WORLD_BADGES = {
   Watopia: ["Volcano Landlord", "🌋"],
   "Makuri Islands": ["Shogun of Makuri", "⛩️"],
   France: ["Le Patron", "🥖"],
-  Paris: ["Champs-ion", "🗼"],
+  Paris: ["Ici c'est Paris", "🗼"],
   London: ["Mind the Gap", "💂"],
   "New York": ["Big Apple Core", "🍎"],
   Richmond: ["Filthy Richmond", "💰"],
