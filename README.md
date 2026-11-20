@@ -36,6 +36,23 @@ the progress string (same format as the backup code), a revision counter, when t
 donated, when they last dismissed the donation card, and created/updated timestamps. No email,
 no IP address, no analytics.
 
+## Badges
+
+A panel at the top of the list shows 27 achievement badges with a progress bar each, the badges
+already unlocked, and the three closest to unlocking ("Show all" lists every one). Unlocking one
+while the app is open pops a toast. Badges are worked out from the jersey list, so nothing extra is
+stored or synced, and un-ticking a jersey can lock a badge again. Combined jerseys don't count
+towards milestones or world clears (same as the world counters), except in The Full English.
+
+| Group | Badges |
+| --- | --- |
+| Milestones | Fresh Laundry (1 jersey), Laundry Day (10), Wardrobe Malfunction (25), Kit Hoarder (50), Lycra Dragon (100), Nothing Left to Wear (all) |
+| Worlds | Jet Lagged (a jersey in every world, Bologna excused), one clear badge per world (Volcano Landlord, Shogun of Makuri, Le Patron, Champs-ion, Mind the Gap, Big Apple Core, Filthy Richmond, Strudel Supremo, Flat Cap Legend, Laird of the Loch, Crit Happens, Full Bolognese), Ouhlala (France + Paris) |
+| Collections | Green With Envy (all sprints), Chickenpox (all KOMs), Human Traffic Cone (all laps), The Full English (every combined at full) |
+| Sets | Rainbow Wannabe (6 UCI course laps), Tickled Pink (Keith + Leith Hill), Buffalo Herd (Fuego Flats both ways) |
+
+Definitions live in `src/badges.js`; add one by appending to `BADGES`.
+
 ## Donation card (World Bicycle Relief)
 
 Once someone has ticked 5 jerseys, a card at the top of the list invites them to donate to your
@@ -116,7 +133,7 @@ npm run dev                       # http://localhost:5173
 Tests (no Cloudflare account needed; the Worker tests run its real SQL on Node's built-in SQLite):
 
 ```sh
-npm test                 # codec + sync engine
+npm test                 # codec, sync engine, badges
 cd worker && npm test    # API
 ```
 
@@ -127,7 +144,9 @@ cd worker && npm test    # API
 | `src/catalog.js` | The jersey catalog. IDs are part of the saved format: never rename one. |
 | `src/codec.js` | Backup-code format, merging, change sets |
 | `src/store.js` | localStorage persistence and the sync engine |
+| `src/badges.js` | Badge definitions and progress |
 | `src/App.jsx` | The tracker UI |
+| `src/components/Badges.jsx` | Badge panel and unlock toast |
 | `src/components/SyncPanel.jsx` | Sync code + backup code panel |
 | `src/components/DonateNag.jsx` | Donation card and footer link |
 | `src/config.js` | API URL, donation URL, nag thresholds |

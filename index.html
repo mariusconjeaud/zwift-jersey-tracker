@@ -15,7 +15,8 @@
       button { -webkit-tap-highlight-color: transparent; font-family: inherit; }
       input, select { font-family: inherit; }
       a { color: inherit; }
-      @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+      @keyframes badge-pop { from { opacity: 0; transform: translate(-50%, 16px) scale(.96); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+      @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
     </style>
   </head>
   <body>

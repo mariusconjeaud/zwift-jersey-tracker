@@ -5,6 +5,7 @@ import { STORE_KEY } from "./store.js";
 import { NAG_MIN_JERSEYS, NAG_SNOOZE_DAYS } from "./config.js";
 import Jersey from "./Jersey.jsx";
 import SyncPanel, { btnS } from "./components/SyncPanel.jsx";
+import Badges from "./components/Badges.jsx";
 import { DonateNag, DonateThanks, DonateFooter } from "./components/DonateNag.jsx";
 
 const font = "'Barlow Condensed','Arial Narrow',sans-serif";
@@ -145,6 +146,8 @@ export default function JerseyHunt({ store }) {
 
       <main style={{ maxWidth: 720, margin: "0 auto", padding: "0 12px" }}>
         {panelOpen && <SyncPanel state={state} store={store} />}
+
+        <Badges earned={earned} />
 
         {showNag && (
           <DonateNag
