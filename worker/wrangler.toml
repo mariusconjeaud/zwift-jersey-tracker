@@ -1,0 +1,24 @@
+name = "jersey-hunt-sync"
+main = "src/index.js"
+compatibility_date = "2026-11-01"
+workers_dev = true
+
+[vars]
+# Comma-separated list of sites allowed to call the API from a browser.
+# Add your custom domain here if you put the app on one.
+ALLOWED_ORIGINS = "https://mariusconjeaud.github.io,http://localhost:5173,http://localhost:4173"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "jersey-hunt"
+# Paste the id printed by `npx wrangler d1 create jersey-hunt` (see README).
+database_id = "00000000-0000-0000-0000-000000000000"
+migrations_dir = "migrations"
+
+# Optional: limit how many sync codes one IP can create per minute.
+# Uncomment if the Workers Rate Limiting binding is available on your plan.
+# The Worker uses it automatically when it is present.
+# [[ratelimits]]
+# name = "CREATE_LIMITER"
+# namespace_id = "1001"
+# simple = { limit = 10, period = 60 }

@@ -1,0 +1,20 @@
+{
+  "name": "jersey-hunt-sync",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Cloudflare Worker + D1 sync API for Jersey Hunt",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:migrate:local": "wrangler d1 migrations apply DB --local",
+    "db:migrate:remote": "wrangler d1 migrations apply DB --remote",
+    "test": "node --test \"test/*.test.js\""
+  },
+  "devDependencies": {
+    "wrangler": "^4.160.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}
