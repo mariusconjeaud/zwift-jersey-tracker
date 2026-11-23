@@ -26,7 +26,7 @@ export function DonateNag({ onDonated, onDismiss }) {
           <p style={{ margin: "4px 0 0", fontSize: 13, color: "#C9D4E8", lineHeight: 1.45 }}>
             {clicked
               ? "Once you've donated, tap “I've donated” and this won't show again, on any of your synced devices."
-              : "It's free and has no ads. If it's helped your hunt, consider a donation to World Bicycle Relief: they get sturdy bikes to students, health workers and entrepreneurs in rural communities."}
+              : "It's free and has no ads. If it's helped your hunt, consider a donation to World Bicycle Relief: they get sturdy real-world Buffalo bikes to students, health workers and entrepreneurs in rural communities."}
           </p>
           <div style={{ display: "flex", gap: 8, marginTop: 10, flexWrap: "wrap" }}>
             {!clicked && (

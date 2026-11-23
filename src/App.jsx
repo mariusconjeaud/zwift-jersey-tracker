@@ -204,7 +204,7 @@ export default function JerseyHunt({ store }) {
                             </span>
                             <span style={{ fontSize: 10.5, color: "#5B6B87", textTransform: "uppercase", letterSpacing: 0.4 }}>{TYPE_LABEL[t]}{dist ? " · " + dist : ""}</span>
                             {route && (
-                              <span style={{ fontSize: 10.5, color: "#7E93B5", lineHeight: 1.25, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                              <span style={{ fontSize: 10.5, color: "#7E93B5", lineHeight: 1.25, overflowWrap: "anywhere" }}>
                                 {route}
                               </span>
                             )}
@@ -242,7 +242,7 @@ export default function JerseyHunt({ store }) {
                 <Jersey style={VIDEO_STYLE[v.t] || "watt"} earned={true} />
                 <span style={{ display: "flex", flexDirection: "column", minWidth: 0, flex: 1 }}>
                   <span style={{ fontSize: 13.5, fontWeight: 600, lineHeight: 1.15, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{v.n}</span>
-                  {v.place && <span style={{ fontSize: 10.5, color: "#7E93B5", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{v.place}</span>}
+                  {v.place && <span style={{ fontSize: 10.5, color: "#7E93B5", lineHeight: 1.25, overflowWrap: "anywhere" }}>{v.place}</span>}
                 </span>
                 <button onClick={() => removeVideo(i)} aria-label={"Remove " + v.n}
                   style={{ background: "none", border: "none", color: "#5B6B87", fontSize: 16, cursor: "pointer", padding: "0 2px" }}>×</button>
@@ -270,6 +270,9 @@ export default function JerseyHunt({ store }) {
         </button>
         <p style={{ textAlign: "center", fontSize: 11, color: "#3D4A63", marginTop: 12 }}>
           Tap a jersey when you capture it. The small line = shortest native route with that segment.
+        </p>
+        <p style={{ textAlign: "center", fontSize: 11, color: "#3D4A63", marginTop: 4 }}>
+          Combined jerseys: tap repeatedly to cycle full → lap+sprint → lap+KOM → sprint+KOM (partial, in orange) → not captured.
         </p>
         <p style={{ textAlign: "center", fontSize: 11, color: "#3D4A63", marginTop: 4 }}>
           Fan-made tracker, not affiliated with Zwift or World Bicycle Relief.

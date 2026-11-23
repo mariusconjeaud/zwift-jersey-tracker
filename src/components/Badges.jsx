@@ -50,7 +50,7 @@ function Tile({ b }) {
         <span style={{ fontSize: 13.5, fontWeight: 600, lineHeight: 1.2, color: b.done ? "#FFF3CF" : "#C9D4E8", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
           {b.name}
         </span>
-        <span style={{ fontSize: 10.5, color: "#7E93B5", lineHeight: 1.3, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+        <span style={{ fontSize: 10.5, color: "#7E93B5", lineHeight: 1.3, overflowWrap: "anywhere" }}>
           {b.desc}
         </span>
         <span style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 5 }}>
