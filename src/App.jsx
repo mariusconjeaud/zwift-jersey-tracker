@@ -12,14 +12,14 @@ const font = "'Barlow Condensed','Arial Narrow',sans-serif";
 const bodyFont = "'Inter',system-ui,sans-serif";
 
 function statusBadge(state, syncEnabled) {
-  if (!state.saved) return { text: "not saved · backup code ▸", color: "#F5A623" };
-  if (!syncEnabled) return { text: "saved ✓ · backup ▸", color: "#5B7F5E" };
-  if (!state.sync) return { text: "this device only · sync ▸", color: "#7E93B5" };
+  if (!state.saved) return { text: "Not saved · backup code", color: "#F5A623" };
+  if (!syncEnabled) return { text: "Saved ✓ · backup", color: "#3ECC5F" };
+  if (!state.sync) return { text: "This device only · sync", color: "#8CA0C0" };
   switch (state.status) {
-    case "synced": return { text: "synced ✓", color: "#5B7F5E" };
-    case "offline": return { text: "offline · will sync ▸", color: "#F5A623" };
-    case "error": return { text: "sync problem ▸", color: "#F5A623" };
-    default: return { text: "syncing…", color: "#8CA0C0" };
+    case "synced": return { text: "Synced ✓", color: "#3ECC5F" };
+    case "offline": return { text: "Offline · will sync", color: "#F5A623" };
+    case "error": return { text: "Sync problem", color: "#F5A623" };
+    default: return { text: "Syncing…", color: "#8CA0C0" };
   }
 }
 
@@ -122,12 +122,19 @@ export default function JerseyHunt({ store }) {
         <div style={{ maxWidth: 720, margin: "10px auto 0", height: 10, borderRadius: 6, background: "#1A2231", overflow: "hidden", display: "flex" }}>
           <div style={{ width: `${pct}%`, transition: "width .4s", background: "linear-gradient(90deg,#F5842B,#3ECC5F 45%,#E23A2E 80%,#2E7CE2)" }} />
         </div>
-        <div style={{ maxWidth: 720, margin: "8px auto 0", display: "flex", justifyContent: "space-between", flexWrap: "wrap", columnGap: 12, rowGap: 4, fontSize: 12.5, color: "#8CA0C0" }}>
+        <div style={{ maxWidth: 720, margin: "8px auto 0", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", columnGap: 12, rowGap: 6, fontSize: 12.5, color: "#8CA0C0" }}>
           <span>{pct}% · ⭐ {gotSpecials}/{specials.length} · <span style={{ color: "#3ECC5F" }}>{cmbFull}/{cmbTotal} full</span> · <span style={{ color: "#F5A623" }}>{cmbAny}/{cmbTotal} combos</span></span>
           <button onClick={togglePanel} aria-expanded={panelOpen} aria-controls="sync-panel"
             title={state.sync ? `Synced as ${state.sync.username}` : undefined}
-            style={{ background: "none", border: "none", padding: 0, cursor: "pointer", color: badge.color, fontSize: 12.5, marginLeft: "auto" }}>
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 6, marginLeft: "auto", cursor: "pointer",
+              padding: "7px 12px", borderRadius: 8, border: "1px solid " + badge.color + "88",
+              background: panelOpen ? badge.color + "2E" : badge.color + "1A", color: badge.color,
+              fontFamily: bodyFont, fontSize: 13.5, fontWeight: 600, lineHeight: 1.1,
+            }}>
+            <span aria-hidden="true" style={{ fontSize: 15 }}>⇅</span>
             {badge.text}
+            <span aria-hidden="true" style={{ fontSize: 10, transition: "transform .15s", transform: panelOpen ? "rotate(180deg)" : "none" }}>▼</span>
           </button>
         </div>
 
