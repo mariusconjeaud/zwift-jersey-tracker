@@ -6,13 +6,13 @@ workers_dev = true
 [vars]
 # Comma-separated list of sites allowed to call the API from a browser.
 # Add your custom domain here if you put the app on one.
-ALLOWED_ORIGINS = "https://mariusconjeaud.github.io,http://localhost:5173,http://localhost:4173"
+ALLOWED_ORIGINS = "https://zwiftjerseyhunt.namatech.eu,https://mariusconjeaud.github.io,http://localhost:5173,http://localhost:4173"
 
 [[d1_databases]]
 binding = "DB"
 database_name = "jersey-hunt"
 # Paste the id printed by `npx wrangler d1 create jersey-hunt` (see README).
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "9d4a515b-ed9f-48d6-bd8c-c104ca534f5b"
 migrations_dir = "migrations"
 
 # Optional: limit how many sync codes one IP can create per minute.
