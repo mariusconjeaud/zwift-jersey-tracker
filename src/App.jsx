@@ -6,6 +6,8 @@ import { NAG_MIN_JERSEYS, NAG_SNOOZE_DAYS } from "./config.js";
 import Jersey from "./Jersey.jsx";
 import SyncPanel, { btnS } from "./components/SyncPanel.jsx";
 import Badges from "./components/Badges.jsx";
+import LinkPrompt from "./components/LinkPrompt.jsx";
+import { useSyncLink } from "./useSyncLink.js";
 import { DonateNag, DonateThanks, DonateFooter } from "./components/DonateNag.jsx";
 
 const font = "'Barlow Condensed','Arial Narrow',sans-serif";
@@ -51,6 +53,7 @@ export default function JerseyHunt({ store }) {
   const state = useSyncExternalStore(store.subscribe, store.getState);
   const { earned, donation } = state;
   useSyncLifecycle(store);
+  const syncLink = useSyncLink(store);
 
   const [vName, setVName] = useState("");
   const [vPlace, setVPlace] = useState("");
@@ -152,6 +155,7 @@ export default function JerseyHunt({ store }) {
       </header>
 
       <main style={{ maxWidth: 720, margin: "0 auto", padding: "0 12px" }}>
+        <LinkPrompt {...syncLink} />
         {panelOpen && <SyncPanel state={state} store={store} />}
 
         <Badges earned={earned} />
