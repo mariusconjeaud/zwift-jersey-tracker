@@ -14,16 +14,31 @@ GitHub Pages (React app) ──fetch──▶ Cloudflare Worker ──▶ D1: pr
 
 ## How syncing works
 
-1. On the first device, open the status link in the header ("this device only · sync ▸"), pick a
+1. On the first device, tap the sync button in the header ("This device only · sync"), pick a
    nickname and tap **Get a sync code**. The Worker creates a random code like `7KQ2-M9XD-4RTA`.
 2. On another device, enter that code and tap **Link this device**. If that device already has
    jerseys ticked, you choose **Merge both** or **Use synced progress only**.
-3. From then on every tap is saved locally right away and pushed about a second later. Devices pull
+3. Or open the **personal link** shown next to the code, `<site>/#7KQ2-M9XD-4RTA`, which links the
+   device in one tap and can be bookmarked.
+4. From then on every tap is saved locally right away and pushed about a second later. Devices pull
    the latest copy when the app is opened or brought back to the foreground.
 
+**Personal links.** The code after `#` never leaves the browser, so it isn't sent to the web host.
+When the app opens with one:
+
+- device not linked: it links, or asks "Merge both / Use synced progress only" if the device has
+  jerseys of its own;
+- already linked to that code: nothing changes, it just syncs;
+- linked to another code: it asks before switching (the old progress stays saved under its code);
+- bad or deleted code: it says so and leaves the device as it is.
+
+The code stays in the address bar while it matches the linked code, so the page can be bookmarked.
+It's removed when the user declines, the code is bad, or the device is unlinked. The app never adds
+the code to the address bar by itself, so sharing the plain site address can't leak it.
+
 The sync code is the only credential: anyone who has it can read and edit that progress, so it's
-treated like a password. Codes are 12 Crockford base32 characters (60 random bits), which makes guessing
-one impractical. Users can unlink a device or delete the cloud copy from the sync panel.
+treated like a password, and so is the personal link. Codes are 12 Crockford base32 characters
+(60 random bits), which makes guessing one impractical. Users can unlink a device or delete the cloud copy from the sync panel.
 
 **Conflicts.** Each change is recorded as "set jersey X to state Y". Pushes include the revision they
 were based on; if another device saved first, the Worker answers `409` with its copy, the app replays
@@ -133,7 +148,7 @@ npm run dev                       # http://localhost:5173
 Tests (no Cloudflare account needed; the Worker tests run its real SQL on Node's built-in SQLite):
 
 ```sh
-npm test                 # codec, sync engine, badges
+npm test                 # codec, sync engine, links, badges
 cd worker && npm test    # API
 ```
 
@@ -144,6 +159,7 @@ cd worker && npm test    # API
 | `src/catalog.js` | The jersey catalog. IDs are part of the saved format: never rename one. |
 | `src/codec.js` | Backup-code format, merging, change sets |
 | `src/store.js` | localStorage persistence and the sync engine |
+| `src/syncLink.js`, `src/useSyncLink.js` | Personal `#code` links |
 | `src/badges.js` | Badge definitions and progress |
 | `src/App.jsx` | The tracker UI |
 | `src/components/Badges.jsx` | Badge panel and unlock toast |

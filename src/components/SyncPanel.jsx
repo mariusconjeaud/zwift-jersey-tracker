@@ -1,31 +1,11 @@
 import { useRef, useState } from "react";
 import { encode, decode, isEmpty } from "../codec.js";
 import { normalizeCode, formatCode } from "../api.js";
+import { personalLink } from "../syncLink.js";
+import { btnS, primaryBtn, dangerBtn, inputS, h2S, pS, mono, copyText } from "./ui.js";
+import MergeChoice from "./MergeChoice.jsx";
 
-export const btnS = {
-  padding: "8px 14px", borderRadius: 8, border: "1px solid #2A3550", background: "#0F1626",
-  color: "#AEBDD8", fontSize: 13, cursor: "pointer",
-};
-const primaryBtn = { ...btnS, border: "1px solid #3ECC5F", background: "rgba(62,204,95,0.12)", color: "#3ECC5F", fontWeight: 600 };
-const dangerBtn = { ...btnS, color: "#E2766E", borderColor: "#4A2A30" };
-const inputS = {
-  padding: "9px 10px", borderRadius: 8, boxSizing: "border-box", minWidth: 0,
-  background: "#0B111C", border: "1px solid #22304A", color: "#EAF0FA", fontSize: 13,
-};
-const h2S = {
-  fontFamily: "'Barlow Condensed','Arial Narrow',sans-serif", fontWeight: 800, fontSize: 17,
-  letterSpacing: 0.5, textTransform: "uppercase", margin: 0, color: "#EAF0FA",
-};
-const pS = { margin: "4px 0 0", fontSize: 12.5, color: "#8CA0C0", lineHeight: 1.45 };
-
-async function copyText(text) {
-  try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch {
-    return false;
-  }
-}
+export { btnS };
 
 function timeAgo(ts) {
   if (!ts) return "";
@@ -140,30 +120,18 @@ function SyncSection({ state, store, say }) {
         <form onSubmit={(e) => { e.preventDefault(); lookup(); }} style={{ display: "flex", gap: 8, marginTop: 6, flexWrap: "wrap" }}>
           <input value={codeIn} onChange={(e) => setCodeIn(e.target.value)} maxLength={20}
             placeholder="XXXX-XXXX-XXXX" aria-label="Sync code" autoCapitalize="characters" autoComplete="off" spellCheck={false}
-            style={{ ...inputS, flex: "2 1 160px", fontFamily: "ui-monospace,Menlo,monospace", letterSpacing: 1 }} />
+            style={{ ...inputS, flex: "2 1 160px", fontFamily: mono, letterSpacing: 1 }} />
           <button type="submit" disabled={busy} style={{ ...btnS, flex: "1 1 140px" }}>Link this device</button>
         </form>
 
-        {choice && (
-          <div style={{ marginTop: 10, padding: 10, borderRadius: 8, background: "#0B111C", border: "1px solid #F5A62366" }}>
-            <p style={{ ...pS, marginTop: 0, color: "#EAF0FA" }}>
-              This device has {choice.localOnly} jersey{choice.localOnly === 1 ? "" : "s"} that{" "}
-              {choice.localOnly === 1 ? "isn't" : "aren't"} in <b>{choice.profile.username}</b>'s progress
-              ({choice.remoteCount} captured).
-            </p>
-            <div style={{ display: "flex", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
-              <button onClick={() => confirmLink("merge")} disabled={busy} style={primaryBtn}>Merge both</button>
-              <button onClick={() => confirmLink("replace")} disabled={busy} style={btnS}>Use synced progress only</button>
-              <button onClick={() => setChoice(null)} disabled={busy} style={btnS}>Cancel</button>
-            </div>
-          </div>
-        )}
+        {choice && <MergeChoice info={choice} busy={busy} onChoose={confirmLink} onCancel={() => setChoice(null)} />}
         {err && <p style={{ ...pS, color: "#F5A623" }}>{err}</p>}
       </div>
     );
   }
 
   const { sync, status } = state;
+  const link = personalLink(sync.code);
   const statusLine = {
     synced: "Synced " + timeAgo(sync.syncedAt),
     pending: "Saving…",
@@ -195,15 +163,28 @@ function SyncSection({ state, store, say }) {
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 8, flexWrap: "wrap" }}>
         <code style={{
           flex: "1 1 auto", padding: "8px 12px", borderRadius: 8, background: "#0B111C", border: "1px solid #22304A",
-          fontFamily: "ui-monospace,Menlo,monospace", fontSize: 19, letterSpacing: 2, color: "#3ECC5F", userSelect: "all", textAlign: "center",
+          fontFamily: mono, fontSize: 19, letterSpacing: 2, color: "#3ECC5F", userSelect: "all", textAlign: "center",
         }}>
           {formatCode(sync.code)}
         </code>
         <button onClick={async () => say((await copyText(formatCode(sync.code))) ? "Sync code copied" : "Select the code and copy it manually")}
           style={btnS}>Copy</button>
       </div>
+
+      <p style={{ ...pS, marginTop: 10, color: "#C9D4E8" }}>Your personal link</p>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginTop: 4, flexWrap: "wrap" }}>
+        <a href={link} title="Open your personal link (then bookmark it)" style={{
+          flex: "1 1 220px", minWidth: 0, padding: "8px 10px", borderRadius: 8, background: "#0B111C", border: "1px solid #22304A",
+          fontFamily: mono, fontSize: 12.5, color: "#8FB8FF", overflowWrap: "anywhere", textDecoration: "none",
+        }}>
+          {link}
+        </a>
+        <button onClick={async () => say((await copyText(link)) ? "Link copied" : "Select the link and copy it manually")}
+          style={btnS}>Copy</button>
+      </div>
       <p style={pS}>
-        Enter this code on your other devices. Anyone who has it can see and change this progress, so keep it to yourself.
+        Enter the code or open the link on your other devices. Bookmark the link to get back to your progress in one tap.
+        Anyone who has the code or the link can see and change this progress, so keep them to yourself.
       </p>
       <p style={{ ...pS, color: status === "offline" || status === "error" ? "#F5A623" : "#5B7F5E" }} aria-live="polite">
         {statusLine}
